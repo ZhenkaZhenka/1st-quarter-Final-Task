@@ -11,7 +11,7 @@ int ReadDataInt(string message)
 string ReadDataStr(string message)
 {
     Console.WriteLine(message);
-    string word = Console.ReadLine();
+    string? word = Console.ReadLine();
     if (string.IsNullOrEmpty(word)) throw new Exception("Вы не ввели число, введите его, пожалуйста");
     else return word;
 
@@ -27,24 +27,24 @@ string? ReadData(string message)
         }
         catch(Exception e)
         {
-            Console.WriteLine($"Вы что-то не правильно ввели", e.Message);
+            Console.WriteLine($"Вы ничего не ввели, введите что-нибудь, пожалуйста", e.Message);
         }
     }
 }
 
-void PrintArray(string[] array, string message)
+void PrintArray(string?[] array, string message)
 {
     Console.WriteLine(message);
-    foreach (string item in array)
+    foreach (string? item in array)
     {
         Console.Write($"{item} ");
     }
     Console.WriteLine();
 }
 
-string[]? CreateArray(int number)
+string?[] CreateArray(int number)
 {
-    string[] array = new string[number];
+    string?[] array = new string[number];
     for (int i = 0; i < array.Length; i++)
     {
         array[i] = ReadData($"Введите {i + 1}-й элемент массива");
@@ -52,23 +52,23 @@ string[]? CreateArray(int number)
     return array;
 }
 
-int CounterForNewArray(string[] array)
+int CounterForNewArray(string?[] array)
 {
     int counter = 0;
-    foreach (string item in array)
+    foreach (string? item in array)
     {
-        if (item.Length < 4) counter++;
+        if (item?.Length < 4) counter++;
     }
     return counter;
 }
 
-string[] GetNewArray(string[] array, int counter)
+string[] GetNewArray(string?[] array, int counter)
 {
     string[] newArray = new string[counter];
     int i = 0;
-    foreach (string item in array)
+    foreach (string? item in array)
     {
-        if (item.Length < 4)
+        if (item?.Length < 4)
         {
             newArray[i] = item;
             i++;
@@ -80,7 +80,7 @@ string[] GetNewArray(string[] array, int counter)
 void Main()
 {
     int lengthOfFirstArray = ReadDataInt("Введите размер массива для заполнения");
-    string[] stringArray = CreateArray(lengthOfFirstArray);
+    string?[] stringArray = CreateArray(lengthOfFirstArray);
     PrintArray(stringArray, "Введенный массив:");
     int lengthOfNewArray = CounterForNewArray(stringArray);
     string[] newStringArray = GetNewArray(stringArray, lengthOfNewArray);
