@@ -8,23 +8,34 @@ int ReadDataInt(string message)
     return Convert.ToInt32(Console.ReadLine());
 }
 
-string? ReadDataString(string message)
+string ReadDataStr(string message)
 {
     Console.WriteLine(message);
-    try
+    string word = Console.ReadLine();
+    if (string.IsNullOrEmpty(word)) throw new Exception("Вы не ввели число, введите его, пожалуйста");
+    else return word;
+
+}
+
+string? ReadData(string message)
+{
+    while(true)
     {
-        return Console.ReadLine();
-    }
-    catch
-    {
-        Console.WriteLine("Вы ничего не ввели, давайте попробуем заного");
-        return ReadDataString(message);
+        try
+        {
+            return ReadDataStr(message);
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine($"Вы что-то не правильно ввели", e.Message);
+        }
     }
 }
+
 void PrintArray(string[] array, string message)
 {
     Console.WriteLine(message);
-    foreach(string item in array)
+    foreach (string item in array)
     {
         Console.Write($"{item} ");
     }
@@ -34,9 +45,9 @@ void PrintArray(string[] array, string message)
 string[]? CreateArray(int number)
 {
     string[] array = new string[number];
-    for(int i = 0; i < array.Length; i++)
+    for (int i = 0; i < array.Length; i++)
     {
-        array[i] = ReadDataString($"Введите {i}-й элемент массива");
+        array[i] = ReadData($"Введите {i + 1}-й элемент массива");
     }
     return array;
 }
@@ -44,7 +55,7 @@ string[]? CreateArray(int number)
 int CounterForNewArray(string[] array)
 {
     int counter = 0;
-    foreach(string item in array)
+    foreach (string item in array)
     {
         if (item.Length < 4) counter++;
     }
@@ -55,7 +66,7 @@ string[] GetNewArray(string[] array, int counter)
 {
     string[] newArray = new string[counter];
     int i = 0;
-    foreach(string item in array)
+    foreach (string item in array)
     {
         if (item.Length < 4)
         {
